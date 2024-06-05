@@ -19,5 +19,9 @@
   "homepage": "https://github.com/Project-OD-Labs/whatsapp-notification-test-for-Project-OD#readme",
   "devDependencies": {
     "electron": "^30.0.9"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-cron": "^2.0.3"
   }
 }

@@ -1,9 +1,15 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
+const path = require('path')
+const axios = require('axios')
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+    }
   })
 
   win.loadFile('index.html')
@@ -31,3 +37,24 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
   })
+
+ipcMain.on('send-message', (event, apiKey, recipient, message) => {
+  axios.post('https://graph.facebook.com/v12.0/<your-business-id>/messages', {
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    data: {
+      messaging_product: 'whatsapp',
+      to: recipient,
+      type: 'text',
+      text: {
+        body: message,
+      },
+    },
+  }).then(response => {
+    console.log('Message sent', response.data)
+  }).catch(error => {
+    console.error('Error sending message', error)
+  })
+})

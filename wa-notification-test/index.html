@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <title>Hello from Electron renderer!</title>
-  </head>
-  <body>
-    <h1>Hello from Electron renderer!</h1>
-    <p>👋</p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <title>WhatsApp Business Scheduler</title>
+</head>
+<body>
+  <h1>WhatsApp Business Scheduler</h1>
+  <form id="loginForm">
+    <label for="apiKey">WhatsApp Business API Key:</label>
+    <input type="text" id="apiKey" name="apiKey" required>
+    <button type="submit">Login</button>
+  </form>
+  <div id="messageScheduler" style="display: none;">
+    <h2>Schedule a Message</h2>
+    <form id="scheduleForm">
+      <label for="recipient">Recipient:</label>
+      <input type="text" id="recipient" name="recipient" required>
+      <label for="message">Message:</label>
+      <input type="text" id="message" name="message" required>
+      <label for="time">Time (HH:MM):</label>
+      <input type="time" id="time" name="time" required>
+      <button type="submit">Schedule</button>
+    </form>
+  </div>
+  <script src="renderer.js"></script>
+</body>
 </html>
